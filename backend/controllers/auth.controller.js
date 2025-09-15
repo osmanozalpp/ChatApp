@@ -12,6 +12,7 @@ export const signup = async (req, res) => {
         if (user) {
             return res.status(400).json({ error: "Kullanıcı adı zaten mevcut." })
         }
+        
         //HASH PASSWORD
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
@@ -26,7 +27,7 @@ export const signup = async (req, res) => {
             username,
             password: hashedPassword,
             gender,
-            profilePic: gender === "Erkek" ? boyProfilePic : girlProfilePic
+            profilePic: gender === "male" ? boyProfilePic : girlProfilePic
         });
         if (newUser) {
             //Generate JWT token 
